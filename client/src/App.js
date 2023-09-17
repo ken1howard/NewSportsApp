@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchNFLTeams } from "./sportApi";
+import "./App.css"; // Import the CSS file
 
 function SportsData() {
   const [teams, setTeams] = useState([]);
@@ -46,6 +47,8 @@ function SportsData() {
     fetchData();
   }, [retryCount]); // Retry whenever retryCount changes
 
+  console.log("Hello",teams)
+
   return (
     <div>
       <h1>NFL Teams</h1>
@@ -56,7 +59,7 @@ function SportsData() {
       ) : (
         <ul>
           {teams.map((team, index) => (
-  <li key={index}>{team.name}</li>
+  <li key={index}>{team.team}</li>
 ))}
 
         </ul>
