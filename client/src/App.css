@@ -1,18 +1,52 @@
-/* SportsData.css */
+/* App.css */
 
-.sports-data-container {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-}
-
-.teams-list {
-  list-style: none;
+/* Reset margin on the body element to ensure the background color fills the whole page */
+body {
+  margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif; /* Specify a font */
 }
 
-.teams-list-item {
-  margin: 8px 0;
-  font-size: 18px;
+/* Style the outer container to set the background color and center the content */
+.app-container {
+  background-color: #333; /* Dark background color */
+  min-height: 100vh; /* Minimum viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Add more styles as needed */
+/* Style the content within the container */
+.app-content {
+  text-align: center; /* Center-align text */
+  color: #fff; /* White text color */
+}
+
+/* Style loading and error messages (optional) */
+.app-content p {
+  margin: 20px 0;
+}
+
+/* Style links (optional) */
+.app-content a {
+  color: #007bff; /* Blue link color */
+}
+
+/* Animation for the "NFL Teams" text */
+@keyframes popOutAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop-out-text {
+  animation: popOutAnimation 2s ease infinite; /* Apply the animation */
+  font-size: 100px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif
+}
