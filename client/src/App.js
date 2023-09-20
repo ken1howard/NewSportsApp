@@ -1,13 +1,19 @@
+// App.js
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Button, Typography, List } from "antd";
 import { LoadingOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { fetchNFLTeams } from "./sportApi"; // Import your data fetching function
 import "./App.css"; // Import the App.css stylesheet
+import TeamModal from "./TeamModal";
+import LoginPage from "./LoginPage";
+import SignUpPage from "./SignupPage";
 
 function App() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedTeam, setSelectedTeam] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
@@ -48,6 +54,45 @@ function App() {
     fetchData();
   }, [retryCount]);
 
+  const handleTeamClick = (team) => {
+    setSelectedTeam(team); // Set the selected team
+  };
+
+  const closeModal = () => {
+    setSelectedTeam(null); // Reset selected team when the modal is closed
+  };
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/LoginPage" element={<LoginPage />} />
+        <Route path="/SignupPage" element={<SignUpPage />} />
+        <Route
+          path="/app"
+          element={
+            <AppContent
+              teams={teams}
+              loading={loading}
+              error={error}
+              handleTeamClick={handleTeamClick}
+              selectedTeam={selectedTeam}
+              closeModal={closeModal}
+            />
+          }
+        />
+      </Routes>
+    </Router>
+  );
+}
+
+function AppContent({
+  teams,
+  loading,
+  error,
+  handleTeamClick,
+  selectedTeam,
+  closeModal,
+}) {
   return (
     <div className="app-container">
       <div className={`app-content`}>
@@ -60,19 +105,32 @@ function App() {
           </p>
         ) : error ? (
           <p style={{ color: "#fff" }}>
-            Error fetching data. Please try again later. <ExclamationCircleOutlined />
+            Error fetching data. Please try again later.{" "}
+            <ExclamationCircleOutlined />
           </p>
         ) : (
           <List
             dataSource={teams}
             renderItem={(team) => (
               <List.Item>
-                <Button type="link">{team.team}</Button>
+                <Button
+                  type="link"
+                  onClick={() => handleTeamClick(team)}
+                >
+                  {team.team}
+                </Button>
               </List.Item>
             )}
           />
         )}
       </div>
+      {selectedTeam && (
+        <TeamModal
+          team={selectedTeam}
+          isVisible={true}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }
