@@ -1,50 +1,53 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link for navigation
+import { useNavigate, Link } from "react-router-dom";
+import "./Styles/LoginPage.css"; 
+import { Form, Input, Button } from "antd"; 
+import nflLogo from "./Assets/BlackNFLlogo.jpg";
+
 
 const LoginPage = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleLogin = async () => {
-    // Implement authentication logic here, e.g., sending a POST request to your backend API
-
-    // Assuming authentication is successful, navigate to the main app page
-    navigate("/app");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+  
+    const handleLogin = async () => {
+      
+      navigate("/app");
+    };
+  
+    return (
+      <div className="login-container">
+        {/* NFL logo */}
+      <img src={nflLogo} alt="NFL Logo" className="nfl-logo" />
+        <h2 className="login-title">Log In</h2>
+        <Form>
+          <Form.Item label="Username" className="login-form-label">
+            <Input
+              className="login-input"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </Form.Item>
+          <Form.Item label="Password" className="login-form-label">
+            <Input.Password
+              className="login-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button className="login-button" type="primary" onClick={handleLogin}>
+              Log In
+            </Button>
+          </Form.Item>
+          <p className="signup-link">
+            Don't have an account? <Link to="/SignupPage">Sign Up</Link>
+          </p>
+        </Form>
+      </div>
+    );
   };
-
-  return (
-    <div>
-      <h2>Log In</h2>
-      <form>
-        <label>
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <br />
-        <button type="button" onClick={handleLogin}>
-          Log In
-        </button>
-        <p>
-          Don't have an account?{" "}
-          <Link to="/SignupPage">Sign Up</Link>
-        </p>
-      </form>
-    </div>
-  );
-};
-
-export default LoginPage;
+  
+  export default LoginPage;
+  

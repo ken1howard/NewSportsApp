@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
-import "./TeamModal.css"; // Import the CSS file with the correct path
+import "./Styles/TeamModal.css"; // Import the CSS file with the correct path
 
 
 const TeamModal = ({ team, isVisible, onClose }) => {

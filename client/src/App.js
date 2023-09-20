@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Button, Typography, List } from "antd";
 import { LoadingOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import { fetchNFLTeams } from "./sportApi"; // Import your data fetching function
-import "./App.css"; // Import the App.css stylesheet
+import { fetchNFLTeams } from "./sportApi"; 
+import "./Styles/App.css"; 
 import TeamModal from "./TeamModal";
 import LoginPage from "./LoginPage";
-import SignUpPage from "./SignupPage";
+import SignUpPage from "./RegistrationForm";
 
 function App() {
   const [teams, setTeams] = useState([]);
