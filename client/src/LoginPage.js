@@ -42,7 +42,7 @@ const LoginPage = () => {
             </Button>
           </Form.Item>
           <p className="signup-link">
-            Don't have an account? <Link to="/SignupPage">Sign Up</Link>
+            Don't have an account? <Link to="/RegistrationForm">Sign Up</Link>
           </p>
         </Form>
       </div>

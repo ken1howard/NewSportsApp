@@ -10,11 +10,15 @@ body {
 /* Style the outer container to set the background color and center the content */
 .app-container {
   background-color: #333; /* Dark background color */
-  min-height: 100vh; /* Minimum viewport height */
   display: flex;
+  flex-direction: column; /* Stack content vertically */
   justify-content: center;
   align-items: center;
+  height: 100%; /* Ensure the container takes up available vertical space */
+  padding: 20px; /* Add some padding for spacing */
 }
+
+
 
 /* Style the content within the container */
 .app-content {
@@ -49,4 +53,25 @@ body {
   animation: popOutAnimation 2s ease infinite; /* Apply the animation */
   font-size: 100px;
   font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+nav {
+  background-color: #333;
+  color: #fff;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+nav li {
+  margin: 0 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
 }

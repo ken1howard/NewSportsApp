@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import "./Styles/TeamModal.css"; // Import the CSS file with the correct path
 
-
 const TeamModal = ({ team, isVisible, onClose }) => {
+    console.log("Team in TeamModal:", team);
   const [isModalVisible, setIsModalVisible] = useState(isVisible);
 
   // Function to toggle modal visibility
@@ -14,7 +14,7 @@ const TeamModal = ({ team, isVisible, onClose }) => {
 
   return (
     <Modal
-      title={`${team.team}`}
+      title={team ? team.team: ""}
       visible={isModalVisible}
       onCancel={toggleModal}
       footer={[
@@ -24,12 +24,12 @@ const TeamModal = ({ team, isVisible, onClose }) => {
       ]}
     >
       {/* Add team information here */}
-    <p> Location: {team.location}</p>
-    <p> League: {team.league}</p>
-    <p> Division: {team.division}</p>
-    <p> Conference: {team.conference}</p>
-    <p> Macot: {team.mascot}</p>
-    <p> Abbreviation: {team.abbreviation}</p>
+      <p>Location: {team ? team.location : ""}</p>
+      <p>League: {team ? team.league : ""}</p>
+      <p>Division: {team ? team.division : ""}</p>
+      <p>Conference: {team ? team.conference : ""}</p>
+      <p>Mascot: {team ? team.mascot : ""}</p>
+      <p>Abbreviation: {team ? team.abbreviation : ""}</p>
       {/* Add more team information fields as needed */}
     </Modal>
   );

@@ -1,13 +1,23 @@
-// App.js
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Button, Typography, List } from "antd";
-import { LoadingOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import { fetchNFLTeams } from "./sportApi"; 
-import "./Styles/App.css"; 
-import TeamModal from "./TeamModal";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  Outlet,
+} from "react-router-dom";
+import { Button, Typography, List, Select } from "antd";
+import {
+  LoadingOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
+import { fetchNFLTeams } from "./sportApi";
+import "./Styles/App.css";
 import LoginPage from "./LoginPage";
-import SignUpPage from "./RegistrationForm";
+import TeamModal from "./TeamModal";
+import RegistrationForm from "./RegistrationForm";
+
+const { Option } = Select;
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -15,34 +25,21 @@ function App() {
   const [error, setError] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const maxRetries = 3; // Maximum number of retries
-    const retryInterval = 2000; // Initial retry interval in milliseconds (2 seconds)
-
     const fetchData = async () => {
       try {
         const response = await fetchNFLTeams();
+        const responseData = await response.data;
 
-        if (response.status === 429 && retryCount < maxRetries) {
-          // If rate limited, retry with exponential backoff
-          setRetryCount(retryCount + 1);
-          const waitTime = Math.pow(2, retryCount) * retryInterval;
-          setTimeout(() => {
-            fetchData(); // Retry the request after the wait time
-          }, waitTime);
+        if (Array.isArray(responseData.results)) {
+          setTeams(responseData.results);
+          setLoading(false);
         } else {
-          // If not rate limited, process the data
-          const responseData = await response.data;
-          console.log("API Response Data:", responseData); // Log the entire response
-          if (Array.isArray(responseData.results)) {
-            setTeams(responseData.results); // Use the "results" array as teams
-            setLoading(false);
-          } else {
-            console.error("Results data is not an array:", responseData.results);
-            setError("Results data is not an array");
-            setLoading(false);
-          }
+          console.error("Results data is not an array:", responseData.results);
+          setError("Results data is not an array");
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -54,42 +51,67 @@ function App() {
     fetchData();
   }, [retryCount]);
 
-  const handleTeamClick = (team) => {
-    setSelectedTeam(team); // Set the selected team
+  const handleTeamSelect = (value) => {
+    const selectedTeam = teams.find((team) => team.team === value);
+
+    if (selectedTeam) {
+      setSelectedTeam(selectedTeam);
+      setModalVisible(true);
+    }
   };
 
   const closeModal = () => {
-    setSelectedTeam(null); // Reset selected team when the modal is closed
+    setModalVisible(false);
   };
 
   return (
     <Router>
-      <Routes>
-        <Route path="/LoginPage" element={<LoginPage />} />
-        <Route path="/SignupPage" element={<SignUpPage />} />
-        <Route
-          path="/app"
-          element={
-            <AppContent
-              teams={teams}
-              loading={loading}
-              error={error}
-              handleTeamClick={handleTeamClick}
-              selectedTeam={selectedTeam}
-              closeModal={closeModal}
-            />
-          }
-        />
-      </Routes>
+      <div>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/RegistrationForm" element={<RegistrationForm />} />
+          <Route
+            path="/app"
+            element={
+              <>
+                <nav>
+                  <ul>
+                    <li>
+                      <Link to="/app">Home</Link>
+                    </li>
+                    <li>
+                      <Select
+                        placeholder="Select NFL Team"
+                        style={{ width: 200 }}
+                        onChange={handleTeamSelect}
+                      >
+                        {teams.map((team) => (
+                          <Option key={team.team} value={team.team}>
+                            {team.team}
+                          </Option>
+                        ))}
+                      </Select>
+                    </li>
+                  </ul>
+                </nav>
+                <Outlet />
+              </>
+            }
+          >
+           <Route index element={<AppContent />} />
+          </Route>
+        </Routes>
+      </div>
+      {modalVisible && (
+        <TeamModal team={selectedTeam} isVisible={modalVisible} onClose={closeModal} />
+      )}
     </Router>
   );
 }
 
 function AppContent({
-  teams,
   loading,
   error,
-  handleTeamClick,
   selectedTeam,
   closeModal,
 }) {
@@ -110,13 +132,10 @@ function AppContent({
           </p>
         ) : (
           <List
-            dataSource={teams}
+            dataSource={selectedTeam ? [selectedTeam] : []}
             renderItem={(team) => (
               <List.Item>
-                <Button
-                  type="link"
-                  onClick={() => handleTeamClick(team)}
-                >
+                <Button type="link" onClick={() => closeModal()}>
                   {team.team}
                 </Button>
               </List.Item>
@@ -124,15 +143,12 @@ function AppContent({
           />
         )}
       </div>
-      {selectedTeam && (
-        <TeamModal
-          team={selectedTeam}
-          isVisible={true}
-          onClose={closeModal}
-        />
-      )}
+{selectedTeam && (
+  <TeamModal team={selectedTeam} isVisible={true} onClose={closeModal} />
+)}
     </div>
   );
 }
+
 
 export default App;
