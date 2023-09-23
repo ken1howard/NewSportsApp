@@ -98,7 +98,7 @@ function App() {
               </>
             }
           >
-           <Route index element={<AppContent />} />
+           <Route index element={<AppContent loading={loading} error={error} selectedTeam={selectedTeam} closeModal={closeModal} />} />
           </Route>
         </Routes>
       </div>
@@ -118,7 +118,7 @@ function AppContent({
   return (
     <div className="app-container">
       <div className={`app-content`}>
-        <Typography.Title level={2} className="pop-out-text">
+      <Typography.Title level={2} className="pop-out-text">
           NFL Teams
         </Typography.Title>
         {loading ? (
