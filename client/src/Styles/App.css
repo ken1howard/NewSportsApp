@@ -1,5 +1,6 @@
 /* App.css */
 
+
 /* Reset margin on the body element to ensure the background color fills the whole page */
 body {
   margin: 0;
@@ -9,7 +10,6 @@ body {
 
 /* Style the outer container to set the background color and center the content */
 .app-container {
-  background-color: #333; /* Dark background color */
   display: flex;
   flex-direction: column; /* Stack content vertically */
   justify-content: center;
@@ -18,12 +18,13 @@ body {
   padding: 20px; /* Add some padding for spacing */
 }
 
-
-
 /* Style the content within the container */
 .app-content {
   text-align: center; /* Center-align text */
   color: #fff; /* White text color */
+  /* Add border styles for the edge of the page */
+  border: 1px solid #ccc;
+  padding: 20px; /* Adjust padding as needed */
 }
 
 /* Style loading and error messages (optional) */
@@ -49,10 +50,11 @@ body {
   }
 }
 
-.pop-out-text {
-  animation: popOutAnimation 2s ease infinite; /* Apply the animation */
-  font-size: 100px;
-  font-family:Verdana, Geneva, Tahoma, sans-serif
+.pop-out-element {
+  /*animation: popOutAnimation 2s ease infinite; /* Apply the animation */
+  font-size: 200px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #fff;
 }
 
 /* Update the styles for the navigation bar */
@@ -62,10 +64,13 @@ nav {
   left: 0;
   right: 0;
   background-color: #333;
+  border-top: 10px solid #ccc;
+  border-right: 10px solid #ccc;
+  border-left: 10px solid #ccc;
+  border-bottom: 2px solid #ccc;
   color: #fff;
   z-index: 100; /* Ensure the navigation bar is above other content */
 }
-
 
 nav ul {
   list-style-type: none;
@@ -82,3 +87,51 @@ nav a {
   color: #fff;
   text-decoration: none;
 }
+
+/* AppStyles.css */
+
+/* ... (previous styles) ... */
+
+/* Animation for the NFL logos */
+@keyframes logoAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2); /* Increase the scale for animation */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.NFLlogo1 {
+  /* Apply the animation */
+  animation: popOutAnimation 2s ease infinite; /* Apply the animation with infinite loop */
+  width: 300px; /* Adjust the width as needed */
+}
+
+/* App.css */
+
+/* Reset margin and padding on the body and html elements */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Specify a font */
+  height: 100%; /* Ensure it covers the entire viewport height */
+}
+
+/* Apply the border styles to the body element */
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #333; /* Dark background color */
+  border-bottom: 10px solid #ccc;
+  border-right: 10px solid #ccc;
+  border-left: 10px solid #ccc; /* Add a border with desired styles */
+  padding: 20px; /* Add some padding for spacing */
+}
+
+/* ... (rest of your styles) ... */

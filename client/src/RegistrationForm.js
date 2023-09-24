@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Styles/RegistrationForm.css"; 
 import nflLogo from "./Assets/BlackNFLlogo.jpg"; 
 
@@ -8,7 +8,7 @@ function RegistrationForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ function RegistrationForm() {
 
       if (response.status === 200) {
         // Registration successful, navigate to the login page
-        navigate("/login");
+        navigate("/LoginPage"); // Redirect to the login page (assuming the login page route is '/')
       }
     } catch (error) {
       // Handle registration error, e.g., display an error message
@@ -78,5 +78,3 @@ function RegistrationForm() {
 }
 
 export default RegistrationForm;
-
-

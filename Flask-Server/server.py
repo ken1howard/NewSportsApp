@@ -54,6 +54,35 @@ def register():
     except Exception as error:
         print(f"Registration error: {error}")
         return jsonify({"error": "Registration failed"}), 500
+    
+
+@app.route("/api/nfl_logos", methods=["GET"])
+def get_nfl_logos():
+    try:
+        # Establish a database connection
+        connection = psycopg2.connect(**db_config)
+        cursor = connection.cursor()
+
+        # Define an SQL query to select all NFL logos from the 'nfl_logos' table
+        select_query = "SELECT team_name, logo_url FROM nfl_logos;"
+
+        # Execute the query
+        cursor.execute(select_query)
+
+        # Fetch all rows
+        logos = cursor.fetchall()
+
+        # Close the cursor and database connection
+        cursor.close()
+        connection.close()
+
+        # Convert the result to a list of dictionaries for JSON response
+        nfl_logos = [{"team_name": row[0], "logo_url": row[1]} for row in logos]
+
+        return jsonify(nfl_logos)
+    except Exception as error:
+        print(f"Error fetching NFL logos: {error}")
+        return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == "__main__":
     app.run()

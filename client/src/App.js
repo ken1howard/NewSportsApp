@@ -21,6 +21,7 @@ const { Option } = Select;
 
 function App() {
   const [teams, setTeams] = useState([]);
+  const [nflLogos, setNflLogos] = useState([]); // State to store NFL logos
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
@@ -50,6 +51,25 @@ function App() {
 
     fetchData();
   }, [retryCount]);
+
+  useEffect(() => {
+    // Fetch NFL logos from your Flask backend
+    const fetchNFLLogos = async () => {
+      try {
+        const response = await fetch("/api/nfl_logos");
+        if (response.ok) {
+          const logosData = await response.json();
+          setNflLogos(logosData);
+        } else {
+          console.error("Error fetching NFL logos:", response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching NFL logos:", error);
+      }
+    };
+
+    fetchNFLLogos(); // Fetch NFL logos when the component mounts
+  }, []); // Empty dependency array to fetch only once when the component mounts
 
   const handleTeamSelect = (value) => {
     const selectedTeam = teams.find((team) => team.team === value);
@@ -98,7 +118,7 @@ function App() {
               </>
             }
           >
-           <Route index element={<AppContent loading={loading} error={error} selectedTeam={selectedTeam} closeModal={closeModal} />} />
+           <Route index element={<AppContent loading={loading} error={error} selectedTeam={selectedTeam} closeModal={closeModal} nflLogos={nflLogos} />} />
           </Route>
         </Routes>
       </div>
@@ -114,13 +134,17 @@ function AppContent({
   error,
   selectedTeam,
   closeModal,
+  nflLogos,
 }) {
   return (
     <div className="app-container">
       <div className={`app-content`}>
-      <Typography.Title level={2} className="pop-out-text">
-          NFL Teams
+      <Typography.Title level={1} className="pop-out-element"
+      style={{ fontSize: '80px', color: 'white',  marginBottom: '80px'}}>
+          NFL Access
         </Typography.Title>
+        <div></div>
+        <img src="https://1000logos.net/wp-content/uploads/2017/05/NFL-Logo-1983.png" alt="NFL Logo" className="NFLlogo1" />
         {loading ? (
           <p style={{ color: "#fff" }}>
             Loading... <LoadingOutlined />
@@ -142,6 +166,18 @@ function AppContent({
             )}
           />
         )}
+
+        {/* Display NFL logos */}
+        <div className="nfl-logos">
+          {nflLogos.map((logo) => (
+            <img
+              key={logo.team_name}
+              src={logo.logo_url}
+              alt={logo.team_name}
+              className="nfl-logo"
+            />
+          ))}
+        </div>
       </div>
 {selectedTeam && (
   <TeamModal team={selectedTeam} isVisible={true} onClose={closeModal} />
@@ -149,6 +185,5 @@ function AppContent({
     </div>
   );
 }
-
 
 export default App;

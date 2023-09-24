@@ -15,3 +15,20 @@
     padding: 8px 0; 
   }
   
+  /* TeamModal.css */
+.centered-title {
+  text-align: center;
+}
+
+
+.modal-with-border {
+  border: 2px solid #000; 
+}
+
+
+.modal-paragraph {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Specify your desired font-family */
+  font-size: 16px; 
+  color: #333; 
+}
+
