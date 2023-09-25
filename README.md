@@ -8,7 +8,7 @@ This application is to get basic information about your favorite football team i
 
 - Backend Databases
 
-The backend being used is Python(Flask)
+The backend being used is Python(Flask) & create a virtual Environment
 
 This application is pulling from an online free NFL Api to render the NFL teams. Provide logic to render the informaiton how you chose. On this page it's rendered in the navigation bar to free up space for the images and animations on the page.
 It also has the potential for user authentication for the user register and sign in for the application so it can save the user's information everytime they return to the site through Postgres.
