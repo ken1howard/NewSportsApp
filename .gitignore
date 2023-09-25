@@ -2,6 +2,7 @@
 
 
 NFLstats.py 
+DB_config.py
 venv/
 
 # dependencies

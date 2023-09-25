@@ -2,16 +2,10 @@ from flask import Flask, request, jsonify
 import psycopg2
 import bcrypt
 from flask_cors import CORS
+from DB_config import db_config
+
 
 app = Flask(__name__)
-
-# Replace with your database configuration
-db_config = {
-    "host":"localhost",
-    "database":"Football_Stats_App",
-    "user":"postgres",
-    "password":"Malik852?!?",
-}
 
 def register_user(username, email, password):
     try:

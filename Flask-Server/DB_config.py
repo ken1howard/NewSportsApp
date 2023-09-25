@@ -8,3 +8,10 @@ db_connection = connect(
     host="localhost",
     port="5432",  # Default PostgreSQL port
 )
+
+db_config = {
+    "host":"localhost",
+    "database":"Football_Stats_App",
+    "user":"postgres",
+    "password":"Malik852?!?",
+}
