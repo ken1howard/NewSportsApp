@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  Outlet,
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, Link, Outlet } from "react-router-dom";
 import { Button, Typography, List, Select } from "antd";
-import {
-  LoadingOutlined,
-  ExclamationCircleOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { fetchNFLTeams } from "./sportApi";
 import "./Styles/App.css";
 import LoginPage from "./LoginPage";
