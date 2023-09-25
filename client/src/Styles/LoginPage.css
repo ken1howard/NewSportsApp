@@ -5,6 +5,7 @@ body {
     justify-content: center;
     height: 100vh; 
     margin: 0;
+    border-top: 10px solid #ccc;
   }
   
   .login-container {

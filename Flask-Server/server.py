@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import psycopg2
 import bcrypt
+from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -84,5 +85,6 @@ def get_nfl_logos():
         print(f"Error fetching NFL logos: {error}")
         return jsonify({"error": "Internal server error"}), 500
 
+CORS(app)
 if __name__ == "__main__":
     app.run()
